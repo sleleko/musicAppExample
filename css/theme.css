@@ -1,0 +1,6 @@
+.here {
+    border-bottom: 3px solid red;
+}
+.selected-album {
+    box-shadow: #0b2e13 10px  ;
+}
