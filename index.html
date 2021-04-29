@@ -19,14 +19,16 @@
         <a class="p-2 text-dark" href="#">Жанры</a>
         <a class="p-2 text-dark" href="#">Радио</a>
     </nav>
-    <a class="btn btn-outline-info mr-3" href="signin.html">Войти</a>
-    <a class="btn btn-outline-warning mr-3" href="signup.html">Регистрация</a>
-    <a class="btn btn-outline-primary mr-3" href="lk.html">Личный кабинет</a>
+    <a class="btn btn-outline-info mr-3" href="signin.html" id="signinBtn">Войти</a>
+    <a class="btn btn-outline-warning mr-3" href="signup.html" id="signupBtn">Регистрация</a>
+    <a class="btn btn-outline-primary mr-3" href="lk.html" id="lkBtn" style="display: none">Личный кабинет</a>
+    <a class="btn btn-outline-danger mr-3" onclick="logOut()" id="logoutBtn" style="display: none">Выйти</a>
 </div>
 <main class="container-fluid pb-3">
     <div class="row m-3">
         <div class="border rounded-3 col-9">
             <h1 class="display-4 m-5">Главное</h1>
+            <h2 id="welcomeHeading" style="display: none">Добро пожаловать, <span id="welcomeName"></span>!</h2>
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -139,5 +141,21 @@
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="js/bootstrap.bundle.js"></script>
+<script>
+    window.onload = () => {
+        if (localStorage.getItem('login')) {
+            document.getElementById('signinBtn').setAttribute('style','display: none')
+            document.getElementById('signupBtn').setAttribute('style','display: none')
+            document.getElementById('lkBtn').setAttribute('style','display: block')
+            document.getElementById('logoutBtn').setAttribute('style','display: block')
+            document.getElementById('welcomeHeading').setAttribute('style','display: block')
+            document.getElementById('welcomeName').innerHTML = localStorage.getItem('firstname')
+        }
+    }
+    function logOut() {
+        localStorage.clear()
+        location.reload()
+    }
+</script>
 </body>
 </html>

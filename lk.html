@@ -19,47 +19,48 @@
         <a class="p-2 text-dark" href="#">Жанры</a>
         <a class="p-2 text-dark" href="#">Радио</a>
     </nav>
-    <a class="btn btn-outline-info mr-3" href="signin.html">Войти</a>
-    <a class="btn btn-outline-warning mr-3" href="signup.html">Регистрация</a>
-    <a class="btn btn-outline-primary mr-3" href="lk.html">Личный кабинет</a>
+    <a class="btn btn-outline-info mr-3" href="signin.html" id="signinBtn">Войти</a>
+    <a class="btn btn-outline-warning mr-3" href="signup.html" id="signupBtn">Регистрация</a>
+    <a class="btn btn-outline-primary mr-3" href="lk.html" id="lkBtn" style="display: none">Личный кабинет</a>
+    <a class="btn btn-outline-danger mr-3" onclick="logOut()" id="logoutBtn" style="display: none">Выйти</a>
 </div>
 <main class="container-fluid pb-3">
     <div class="row m-3">
         <div class="border rounded-3 col-9 offset-1">
             <h1 class="display-4 m-5">Личный кабинет</h1>
             <div class="card-body">
-                <form>
+                <form id="lkForm">
                     <div class="form-row">
                         <div class="col form-group">
                             <label>Имя </label>
-                            <input type="text" class="form-control" placeholder="" name="firstname">
+                            <input type="text" class="form-control" placeholder="" id="firstname">
                         </div>
                         <div class="col form-group">
                             <label>Фамилия</label>
-                            <input type="text" class="form-control" placeholder="" name="lastname">
+                            <input type="text" class="form-control" placeholder="" id="lastname">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" placeholder="" name="email">
+                            <input type="email" class="form-control" placeholder="" id="email">
                         </div>
                         <div class="col form-group">
                             <label>Логин</label>
-                            <input type="login" class="form-control" placeholder="" name="login">
+                            <input type="login" class="form-control" placeholder="" id="login">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input class="form-control" type="password" name="password">
+                        <input class="form-control" type="password" id="password">
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-warning btn-block"> Изменить данные  </button>
+                        <button type="submit" class="btn btn-warning btn-block" onclick="onSubmit()"> Изменить данные  </button>
                     </div>
                 </form>
             </div>
-            <div class="border-top card-body text-center"><a href="#">Выйти</a></div>
+            <div class="border-top card-body text-center"><a href="#" onclick="logOut()">Выйти</a></div>
 
         </div>
     </div>
@@ -77,5 +78,35 @@
 </footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="js/bootstrap.bundle.js"></script>
+<script>
+    window.onload = () => {
+        if (localStorage.getItem('login')) {
+            document.getElementById('signinBtn').setAttribute('style','display: none')
+            document.getElementById('signupBtn').setAttribute('style','display: none')
+            document.getElementById('lkBtn').setAttribute('style','display: block')
+            document.getElementById('logoutBtn').setAttribute('style','display: block')
+
+            document.getElementById('firstname').value = localStorage.getItem('firstname')
+            document.getElementById('lastname').value = localStorage.getItem('lastname')
+            document.getElementById('email').value = localStorage.getItem('email')
+            document.getElementById('login').value = localStorage.getItem('login')
+            document.getElementById('password').value = localStorage.getItem('password')
+        }
+    }
+    function onSubmit() {
+        // e.preventDefault()
+        let formData = document.getElementById('lkForm')
+        localStorage.setItem('firstname', formData.firstname.value)
+        localStorage.setItem('lastname', formData.lastname.value)
+        localStorage.setItem('email', formData.email.value)
+        localStorage.setItem('login', formData.login.value)
+        localStorage.setItem('password', formData.password.value)
+        // console.log('Данные регистрации ' + localStorage.getItem('login'))
+    }
+    function logOut() {
+        localStorage.clear()
+        location.reload()
+    }
+</script>
 </body>
 </html>
